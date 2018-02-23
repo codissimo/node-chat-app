@@ -24,6 +24,8 @@ socket.on('newLocationMessage', function(message) {
   a.attr('href', message.url);
   li.append(a);
   jQuery('#messages').append(li);
+}, function(feedback) {
+  console.log(feedback);
 });
 
 jQuery('#message-form').on('submit', function(e) {
@@ -45,6 +47,8 @@ locationButton.on('click', function() {
     socket.emit('createLocationMessage', {
       lat: position.coords.latitude,
       lng: position.coords.longitude
+    }, function(feedback) {
+      console.log(feedback);
     });
   }, function() {
     alert('Unable to fetch location');

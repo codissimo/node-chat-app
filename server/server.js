@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 
   socket.on('createLocationMessage', (coods, callback) => {
     io.emit('newLocationMessage', generateLocationMessage('Admin', coods.lat, coods.lng));
-    // callback('LocationMessage delivered');
+    callback('LocationMessage delivered');
   });
 
   socket.on('disconnect', () => {
