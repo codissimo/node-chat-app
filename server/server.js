@@ -33,13 +33,18 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createMessage', (message, callback) => {
-    io.emit('newMessage', generateMessage(message.from, message.text));  // emits to everyone
-    // socket.broadcast.emit('newMessage', generateMessage(message.from, message.text));  // emits to everyone except the user
+    var user = users.getUser(socket.id);
+    if (user && isRealString(message.text)) {
+      io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+    }
     callback('Message delivered');
   });
 
   socket.on('createLocationMessage', (coods, callback) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coods.lat, coods.lng));
+    var user = users.getUser(socket.id);
+    if (user) {
+      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coods.lat, coods.lng));
+    }
     callback('LocationMessage delivered');
   });
 

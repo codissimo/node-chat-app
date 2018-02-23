@@ -49,13 +49,6 @@ socket.on('newMessage', function(message) {
   });
   jQuery('#messages').append(html);
   scrollToBottom();
-
-//   // console.log('newMessage', message);
-//   var li = jQuery('<li></li>');
-//   li.text(`${moment.utc(message.createdAt).format('HH:mm:ss')} - ${message.from}: ${message.text}`);
-//   jQuery('#messages').append(li);
-// }, function(feedback) {
-//   console.log(feedback);
 });
 
 socket.on('newLocationMessage', function(message) {
@@ -67,14 +60,6 @@ socket.on('newLocationMessage', function(message) {
   });
   jQuery('#messages').append(html);
   scrollToBottom();
-//   var li = jQuery('<li></li>');
-//   var a = jQuery('<a target="_blank">My current location</a>');
-//   li.text(`${moment.utc(message.createdAt).format('HH:mm:ss')} - ${message.from}: `);
-//   a.attr('href', message.url);
-//   li.append(a);
-//   jQuery('#messages').append(li);
-// }, function(feedback) {
-//   console.log(feedback);
 });
 
 jQuery('#message-form').on('submit', function(e) {
@@ -83,7 +68,6 @@ jQuery('#message-form').on('submit', function(e) {
   var messageTextbox = jQuery('[name=message]');
   // var messageTextbox = jQuery('#message');
   socket.emit('createMessage', {
-    from: 'User',
     text: messageTextbox.val()
   }, function(feedback) {
     console.log(feedback);
